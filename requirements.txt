@@ -1,0 +1,25 @@
+# Core Python
+fastapi>=0.110.0
+uvicorn>=0.27.0
+python-multipart>=0.0.9
+requests>=2.31.0
+python-dotenv>=1.0.0
+
+# Image Processing
+Pillow>=10.0.0
+numpy>=1.24.0
+opencv-python>=4.8.0
+
+# ML / Deep Learning (optional — app runs in demo mode without these)
+# torch>=2.1.0
+# torchvision>=0.16.0
+
+# Evaluation Metrics (optional)
+# nltk>=3.8.1
+# rouge-score>=0.1.2
+# bert-score>=0.3.13
+
+# Utilities
+tqdm>=4.66.0
+matplotlib>=3.8.0
+scikit-learn>=1.4.0
