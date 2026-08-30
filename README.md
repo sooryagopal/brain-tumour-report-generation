@@ -1,6 +1,5 @@
 # 🧠 NeuroScan AI — Brain Tumour MRI Report Generator
 
-**Project 22ADP72 | Kongu Engineering College | B.E. AI & DS 2027**
 
 Multi-class brain tumour MRI classification with confidence-grounded severity grading and automated structured radiology report generation.
 
