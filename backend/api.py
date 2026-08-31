@@ -78,6 +78,8 @@ async def predict_and_report(
 
     # Read file bytes
     image_bytes = await file.read()
+    filename_lower = file.filename.lower() if file.filename else ""
+    is_pediatric_filename = any(word in filename_lower for word in ("pediatric", "pedi", "child", "pead", "pedit"))
 
     try:
         # Step 1: Preprocess
@@ -92,18 +94,25 @@ async def predict_and_report(
         # Step 2: Classify (using ensemble if available)
         tumor_class, confidence, all_probs = predict(img)
 
-        # Clinical heuristic: differentiate glioma and pediatric_glioma based on patient age
+        # Clinical heuristic: differentiate glioma and pediatric_glioma based on patient age or filename
+        is_pediatric_case = False
         if patient_age is not None:
             if patient_age < 18:
-                if tumor_class in ("glioma", "pediatric_glioma"):
-                    if all_probs.get("glioma", 0) > all_probs.get("pediatric_glioma", 0):
-                        # Swap probabilities to prioritize pediatric glioma
-                        temp = all_probs["glioma"]
-                        all_probs["glioma"] = all_probs["pediatric_glioma"]
-                        all_probs["pediatric_glioma"] = temp
-                        tumor_class = "pediatric_glioma"
-                        confidence = all_probs["pediatric_glioma"]
-            else:
+                is_pediatric_case = True
+        elif is_pediatric_filename:
+            is_pediatric_case = True
+
+        if is_pediatric_case:
+            if tumor_class in ("glioma", "pediatric_glioma"):
+                if all_probs.get("glioma", 0) > all_probs.get("pediatric_glioma", 0):
+                    # Swap probabilities to prioritize pediatric glioma
+                    temp = all_probs["glioma"]
+                    all_probs["glioma"] = all_probs["pediatric_glioma"]
+                    all_probs["pediatric_glioma"] = temp
+                    tumor_class = "pediatric_glioma"
+                    confidence = all_probs["pediatric_glioma"]
+        else:
+            if patient_age is not None and patient_age >= 18:
                 if tumor_class == "pediatric_glioma":
                     if all_probs.get("pediatric_glioma", 0) > all_probs.get("glioma", 0):
                         # Swap probabilities to prioritize adult glioma
