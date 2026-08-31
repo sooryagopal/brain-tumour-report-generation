@@ -11,8 +11,8 @@ numpy>=1.24.0
 opencv-python>=4.8.0
 
 # ML / Deep Learning (optional — app runs in demo mode without these)
-# torch>=2.1.0
-# torchvision>=0.16.0
+torch>=2.1.0
+torchvision>=0.16.0
 
 # Evaluation Metrics (optional)
 # nltk>=3.8.1

@@ -19,7 +19,7 @@ from fastapi.responses import JSONResponse
 ROOT_DIR = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT_DIR))
 
-from backend.classifier import load_model, predict, is_demo_mode
+from backend.classifier import load_models, predict, is_demo_mode
 from backend.severity import grade_severity, get_tumour_info
 from backend.report_generator import generate_report
 from backend.evaluator import compute_metrics
@@ -42,8 +42,8 @@ app.add_middleware(
 
 # ─── Startup: Load Model ──────────────────────────────────────────────────────
 
-WEIGHTS_PATH = ROOT_DIR / "models" / "efficientnet_b4.pth"
-MODEL = load_model(str(WEIGHTS_PATH), num_classes=6)
+# We rely on the paths configured inside classifier.py now
+EFF_MODEL, DENSE_MODEL, RES_MODEL = load_models(num_classes=6)
 
 # ─── Routes ───────────────────────────────────────────────────────────────────
 
@@ -52,10 +52,10 @@ MODEL = load_model(str(WEIGHTS_PATH), num_classes=6)
 def health_check():
     return {
         "status": "running",
-        "model": "EfficientNet-B4",
+        "model": "Ensemble (EfficientNet-B4 + DenseNet-121 + ResNet-50)",
         "num_classes": 6,
         "demo_mode": is_demo_mode(),
-        "classes": ["glioma", "meningioma", "pituitary", "no_tumor", "astrocytoma", "ependymoma"],
+        "classes": ["glioma", "meningioma", "notumor", "pituitary", "metastasis", "pediatric_glioma"],
     }
 
 
@@ -89,8 +89,29 @@ async def predict_and_report(
             import numpy as np
             img = np.zeros((224, 224, 3), dtype=np.float32)
 
-        # Step 2: Classify
-        tumor_class, confidence, all_probs = predict(MODEL, img)
+        # Step 2: Classify (using ensemble if available)
+        tumor_class, confidence, all_probs = predict(img)
+
+        # Clinical heuristic: differentiate glioma and pediatric_glioma based on patient age
+        if patient_age is not None:
+            if patient_age < 18:
+                if tumor_class in ("glioma", "pediatric_glioma"):
+                    if all_probs.get("glioma", 0) > all_probs.get("pediatric_glioma", 0):
+                        # Swap probabilities to prioritize pediatric glioma
+                        temp = all_probs["glioma"]
+                        all_probs["glioma"] = all_probs["pediatric_glioma"]
+                        all_probs["pediatric_glioma"] = temp
+                        tumor_class = "pediatric_glioma"
+                        confidence = all_probs["pediatric_glioma"]
+            else:
+                if tumor_class == "pediatric_glioma":
+                    if all_probs.get("pediatric_glioma", 0) > all_probs.get("glioma", 0):
+                        # Swap probabilities to prioritize adult glioma
+                        temp = all_probs["pediatric_glioma"]
+                        all_probs["pediatric_glioma"] = all_probs["glioma"]
+                        all_probs["glioma"] = temp
+                        tumor_class = "glioma"
+                        confidence = all_probs["glioma"]
 
         # Step 3: Severity grading
         severity, severity_desc = grade_severity(tumor_class, confidence)

@@ -7,14 +7,14 @@ import { GraduationCap, BookOpen, Users, Cpu, GitBranch, Target } from 'lucide-r
 const PIPELINE = [
   { step: '01', title: 'MRI Upload',         desc: 'JPG/PNG brain MRI scan uploaded via drag-and-drop or file browser.', icon: '📤' },
   { step: '02', title: 'Preprocessing',       desc: 'CLAHE contrast enhancement, ROI extraction, gamma correction, normalisation to 224×224.', icon: '⚙️' },
-  { step: '03', title: 'CNN Classification',  desc: 'EfficientNet-B4 fine-tuned on 7,000+ images across 6 tumour classes.', icon: '🧠' },
+  { step: '03', title: 'CNN Ensemble',  desc: 'EfficientNet-B4 + DenseNet-121 + ResNet-50 ensemble fine-tuned on 7,000+ images across 6 tumour classes.', icon: '🧠' },
   { step: '04', title: 'Severity Grading',    desc: 'Confidence-grounded clinical rules map tumour type + confidence → Mild/Moderate/Severe.', icon: '📊' },
   { step: '05', title: 'LLM Report Gen',      desc: 'Ollama LLM generates structured Findings / Impression / Recommendation sections grounded by classifier output.', icon: '📋' },
   { step: '06', title: 'NLP Evaluation',      desc: 'BLEU-1, ROUGE-L, BERTScore metrics evaluate report quality against reference reports.', icon: '📈' },
 ];
 
 const TECH = [
-  { name: 'EfficientNet-B4', category: 'CNN Backbone',         color: '#6366f1' },
+  { name: 'EfficientNet + DenseNet + ResNet', category: 'CNN Ensemble',         color: '#6366f1' },
   { name: 'FastAPI',          category: 'Backend API',          color: '#06b6d4' },
   { name: 'React + Vite',     category: 'Frontend',             color: '#f59e0b' },
   { name: 'Ollama LLM',       category: 'Report Generation',    color: '#8b5cf6' },

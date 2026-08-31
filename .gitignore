@@ -1,3 +1,5 @@
 data/
 dataset/
 outputs/
+models/*.pth
+

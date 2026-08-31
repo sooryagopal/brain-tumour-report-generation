@@ -7,18 +7,18 @@ const CLASS_COLORS = {
   glioma:       '#6366f1',
   meningioma:   '#8b5cf6',
   pituitary:    '#06b6d4',
-  no_tumor:     '#22c55e',
-  astrocytoma:  '#f59e0b',
-  ependymoma:   '#ec4899',
+  notumor:     '#22c55e',
+  metastasis:  '#f59e0b',
+  pediatric_glioma:   '#ec4899',
 };
 
 const CLASS_LABELS = {
   glioma:       'Glioma',
   meningioma:   'Meningioma',
   pituitary:    'Pituitary',
-  no_tumor:     'No Tumour',
-  astrocytoma:  'Astrocytoma',
-  ependymoma:   'Ependymoma',
+  notumor:     'No Tumour',
+  metastasis:  'Metastasis',
+  pediatric_glioma:   'Pediatric Glioma',
 };
 
 export default function ProbabilityChart({ probabilities, topClass }) {

@@ -22,17 +22,17 @@ SEVERITY_RULES = {
         "Moderate": (0.55, 0.80),
         "Mild":     (0.00, 0.55),
     },
-    "astrocytoma": {
+    "metastasis": {
         "Severe":   (0.85, 1.01),
         "Moderate": (0.60, 0.85),
         "Mild":     (0.00, 0.60),
     },
-    "ependymoma": {
+    "pediatric_glioma": {
         "Severe":   (0.80, 1.01),
         "Moderate": (0.55, 0.80),
         "Mild":     (0.00, 0.55),
     },
-    "no_tumor": {
+    "notumor": {
         "Normal":   (0.00, 1.01),
     },
 }
@@ -70,19 +70,19 @@ TUMOUR_INFO = {
         "who_grade": "WHO Grade I",
         "common_location": "Sella turcica (pituitary fossa)",
     },
-    "astrocytoma": {
-        "full_name": "Astrocytoma",
-        "description": "A tumour of astrocytes (star-shaped glial cells). Ranges from slow-growing to highly aggressive.",
+    "metastasis": {
+        "full_name": "Brain Metastasis",
+        "description": "Cancer that has spread to the brain from another location in the body (e.g., lung, breast).",
+        "who_grade": "N/A (Metastatic)",
+        "common_location": "Grey-white matter junction",
+    },
+    "pediatric_glioma": {
+        "full_name": "Pediatric Glioma",
+        "description": "Gliomas occurring in children, which have different molecular features than adult gliomas.",
         "who_grade": "WHO Grade I–IV",
-        "common_location": "Cerebral hemispheres, cerebellum",
+        "common_location": "Posterior fossa, brainstem, optic pathway",
     },
-    "ependymoma": {
-        "full_name": "Ependymoma",
-        "description": "Arising from ependymal cells lining ventricles. More common in children.",
-        "who_grade": "WHO Grade II–III",
-        "common_location": "4th ventricle / spinal cord",
-    },
-    "no_tumor": {
+    "notumor": {
         "full_name": "No Tumour Detected",
         "description": "Normal MRI findings. No evidence of intracranial neoplasm.",
         "who_grade": "N/A",

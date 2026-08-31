@@ -104,53 +104,54 @@ TEMPLATE_REPORTS = {
             ),
         },
     },
-    "astrocytoma": {
+    "metastasis": {
         "findings": (
-            "An infiltrative intra-axial lesion with ill-defined margins is visualised. "
-            "T2/FLAIR hyperintensity is present with moderate surrounding oedema. "
-            "Enhancement pattern varies with tumour grade; no haemorrhage identified."
+            "Multiple discrete enhancing intra-axial lesions identified, often at the grey-white matter junction. "
+            "Extensive perilesional vasogenic oedema is present, disproportionate to the size of the lesions. "
+            "Findings are highly suggestive of metastatic disease."
         ),
         "impression": (
-            "Findings are consistent with astrocytoma ({severity} grade). "
-            "Confidence: {confidence:.1%}. Histopathological grading is required to guide management."
+            "Findings are consistent with brain metastasis ({severity} grade). "
+            "Confidence: {confidence:.1%}. Staging CT of chest, abdomen, and pelvis recommended to identify primary."
         ),
         "recommendation": {
             "Severe": (
-                "Immediate neurosurgical referral for surgical planning. IDH mutation and MGMT methylation "
-                "analysis recommended. Radiation oncology consultation to follow."
+                "Immediate neurosurgical referral for consideration of resection or stereotactic radiosurgery. "
+                "Corticosteroids to manage mass effect. Oncology consultation required."
             ),
             "Moderate": (
-                "Neuro-oncology referral. MR spectroscopy and perfusion imaging to better characterise grade."
+                "Neuro-oncology referral for whole brain radiation therapy or targeted treatments. "
+                "Further imaging to locate primary tumour."
             ),
             "Mild": (
-                "3-month MRI follow-up. Neurology outpatient review. Consider IDH status for prognosis."
+                "Follow-up with primary oncologist. Monitoring and palliative care evaluation if indicated."
             ),
         },
     },
-    "ependymoma": {
+    "pediatric_glioma": {
         "findings": (
-            "A discrete intra-ventricular or parenchymal mass is identified with T2 heterogeneity. "
-            "Calcification and cystic components may be present. Post-contrast enhancement is heterogeneous. "
-            "CSF seeding cannot be excluded without spinal imaging."
+            "A heterogeneous mass with cystic and solid components is visualised, commonly in the posterior fossa or optic pathway. "
+            "Post-contrast imaging shows avid enhancement of solid portions. "
+            "Ventriculomegaly suggesting obstructive hydrocephalus may be present."
         ),
         "impression": (
-            "Imaging characteristics are consistent with ependymoma ({severity} grade). "
-            "Confidence: {confidence:.1%}. Spinal cord MRI should be obtained for staging."
+            "Imaging characteristics are consistent with pediatric glioma ({severity} grade). "
+            "Confidence: {confidence:.1%}. Urgent pediatric neuro-oncology referral indicated."
         ),
         "recommendation": {
             "Severe": (
-                "Urgent neurosurgical and neuro-oncology referral. Total craniospinal MRI for staging. "
-                "Gross total resection is the primary treatment goal."
+                "Urgent pediatric neurosurgical referral. Intervention for hydrocephalus if present. "
+                "Biopsy or resection followed by multi-disciplinary tumour board review."
             ),
             "Moderate": (
-                "Neurosurgery and oncology consultation. MRI of the entire neuraxis for leptomeningeal spread assessment."
+                "Pediatric neurosurgery and oncology consultation. MRI of the entire neuraxis to evaluate spread."
             ),
             "Mild": (
-                "Interval MRI in 3 months. Paediatric neuro-oncology consultation if applicable."
+                "Close monitoring with serial MRIs. Pediatric neurologist review."
             ),
         },
     },
-    "no_tumor": {
+    "notumor": {
         "findings": (
             "MRI of the brain demonstrates normal cortical and subcortical signal characteristics. "
             "No intra-axial or extra-axial mass lesion is identified. Ventricles are of normal size "
@@ -172,7 +173,7 @@ TEMPLATE_REPORTS = {
 
 def _template_report(tumor_class: str, confidence: float, severity: str, patient_age=None, patient_sex=None) -> str:
     """Generate a high-quality template-based report."""
-    template = TEMPLATE_REPORTS.get(tumor_class, TEMPLATE_REPORTS["no_tumor"])
+    template = TEMPLATE_REPORTS.get(tumor_class, TEMPLATE_REPORTS["notumor"])
 
     findings = template["findings"]
     impression = template["impression"].format(confidence=confidence, severity=severity)

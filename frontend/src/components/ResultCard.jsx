@@ -11,18 +11,18 @@ const CLASS_LABELS = {
   glioma:       'Glioma',
   meningioma:   'Meningioma',
   pituitary:    'Pituitary Tumour',
-  no_tumor:     'No Tumour Detected',
-  astrocytoma:  'Astrocytoma',
-  ependymoma:   'Ependymoma',
+  notumor:     'No Tumour Detected',
+  metastasis:  'Metastasis',
+  pediatric_glioma:   'Pediatric Glioma',
 };
 
 const CLASS_ICONS = {
   glioma:       '🧬',
   meningioma:   '🔬',
   pituitary:    '🫀',
-  no_tumor:     '✅',
-  astrocytoma:  '⚗️',
-  ependymoma:   '🧪',
+  notumor:     '✅',
+  metastasis:  '🦠',
+  pediatric_glioma:   '🧒',
 };
 
 const SEVERITY_DESC_SHORT = {
@@ -57,7 +57,7 @@ export default function ResultCard({ result, demoMode }) {
           <AlertTriangle size={15} />
           <span>
             <strong>Demo Mode</strong> — Model weights not found. Showing synthetic predictions.
-            Add <code style={{ fontFamily: 'monospace', fontSize: '0.78rem' }}>models/efficientnet_b4.pth</code> to enable real inference.
+            Add <code>efficientnet_best.pth</code>, <code>densenet_best.pth</code>, and <code>resnet_best.pth</code> to enable real inference.
           </span>
         </div>
       )}

@@ -12,8 +12,8 @@ const FEATURES = [
   {
     icon: Brain,
     color: '#6366f1',
-    title: 'EfficientNet-B4 CNN',
-    desc: 'State-of-the-art convolutional neural network fine-tuned on 7,000+ brain MRI images across 6 tumour classes.',
+    title: '3-Model Ensemble',
+    desc: 'Combines EfficientNet-B4, DenseNet-121, and ResNet-50 for higher accuracy and robustness.',
   },
   {
     icon: Zap,
@@ -52,14 +52,14 @@ const CLASSES = [
   { name: 'Meningioma',   emoji: '🔬', images: '1,645', color: '#8b5cf6' },
   { name: 'Pituitary',    emoji: '🫀', images: '1,757', color: '#06b6d4' },
   { name: 'No Tumour',    emoji: '✅', images: '2,000', color: '#22c55e' },
-  { name: 'Astrocytoma',  emoji: '⚗️', images: '~500',  color: '#f59e0b' },
-  { name: 'Ependymoma',   emoji: '🧪', images: '~400',  color: '#ec4899' },
+  { name: 'Metastasis',   emoji: '🦠', images: '~2,800',  color: '#f59e0b' },
+  { name: 'Pediatric Glioma', emoji: '🧒', images: '~1,200',  color: '#ec4899' },
 ];
 
 const STATS = [
   { value: '6',      label: 'Tumour Classes', icon: Brain },
   { value: '7,000+', label: 'Training Images', icon: Activity },
-  { value: 'B4',     label: 'EfficientNet',   icon: Zap },
+  { value: 'Ens',    label: 'Ensemble',       icon: Zap },
   { value: '3',      label: 'NLP Metrics',    icon: Award },
 ];
 
@@ -70,49 +70,6 @@ export default function Home() {
     <div style={{ padding: '60px 0 100px' }}>
       <div className="container">
 
-        {/* ── Hero ─────────────────────────────────────────── */}
-        <div style={{ textAlign: 'center', maxWidth: 780, margin: '0 auto 80px' }}>
-          <div className="badge badge-indigo" style={{ marginBottom: '24px', display: 'inline-flex' }}>
-            🎓 Final Year Project — 22ADP72
-          </div>
-
-          <h1
-            style={{ fontSize: 'clamp(2.5rem, 6vw, 4rem)', marginBottom: '24px' }}
-            className="animate-fade-in-up"
-          >
-            Brain Tumour{' '}
-            <span className="gradient-text">MRI Report</span>
-            <br />
-            Generator
-          </h1>
-
-          <p
-            style={{
-              fontSize: '1.15rem',
-              color: 'var(--text-secondary)',
-              lineHeight: 1.75,
-              marginBottom: '40px',
-              maxWidth: 620,
-              margin: '0 auto 40px',
-            }}
-            className="animate-fade-in-up"
-          >
-            Multi-class brain tumour classification across <strong style={{ color: 'var(--text-primary)' }}>6 disease types</strong> with
-            confidence-grounded severity grading and automated structured radiology report generation
-            using fine-tuned Vision-Language Models.
-          </p>
-
-          <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <button className="btn-primary" style={{ fontSize: '1rem', padding: '14px 32px' }} onClick={() => navigate('/analyze')}>
-              <Activity size={18} />
-              Analyse MRI Scan
-              <ChevronRight size={16} />
-            </button>
-            <button className="btn-secondary" onClick={() => navigate('/about')}>
-              Learn More
-            </button>
-          </div>
-        </div>
 
         {/* ── Stats ────────────────────────────────────────── */}
         <div className="grid-4" style={{ marginBottom: '80px' }}>
